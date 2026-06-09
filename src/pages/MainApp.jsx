@@ -1,83 +1,138 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import WelcomeScreen from './WelcomeScreen';
 import MapScreen from './MapScreen';
+import StoryReader from './StoryReader';
+import GamesScreen from './GamesScreen';
+import ProfileScreen from './ProfileScreen';
 import BottomNav from '@/components/BottomNav';
-
-// Simple localStorage-backed gameState for demo
-function loadState() {
-  try {
-    const raw = localStorage.getItem('mundi_gamestate');
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return {
-    name: 'Explorador',
-    level: 1,
-    totalXP: 0,
-    xp: 0,
-    dracmas: 50,
-    completedStories: [],
-    unlockedMedals: [],
-    dailyStreak: 1,
-    gamesPlayed: [],
-    avatarId: 'default',
-    frameId: null,
-    ownedItems: [],
-    title: 'Aprendiz Bíblico',
-    runnerHighScore: 0,
-  };
-}
-
-function saveState(state) {
-  try { localStorage.setItem('mundi_gamestate', JSON.stringify(state)); } catch {}
-}
-
-const XP_PER_LEVEL = 300;
+import ConfettiEffect from '@/components/ConfettiEffect';
+import { loadState, saveState, applyReward, getTitle, getLevel } from '@/lib/gameState';
+import { SFX } from '@/lib/audioEngine';
 
 export default function MainApp() {
-  const [gameState, setGameState] = useState(loadState);
+  const [gameState, setGameState] = useState(() => loadState());
   const [activeTab, setActiveTab] = useState('map');
+  const [currentStory, setCurrentStory] = useState(null);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => { saveState(gameState); }, [gameState]);
 
-  const handleStartStory = (story) => {
-    // Navigate to story reader (placeholder for now)
-    alert(`Abrindo: ${story.title}\n\nA leitura de histórias está a caminho!`);
+  // Onboarding: show welcome if name not set
+  const needsOnboarding = !gameState.onboardingDone || !gameState.name;
+
+  const handleOnboardingComplete = ({ name, avatarEmoji }) => {
+    SFX.unlock();
+    setGameState(prev => ({
+      ...prev,
+      name,
+      avatarEmoji,
+      onboardingDone: true,
+    }));
   };
 
-  const addXP = (xp, dracmas = 0) => {
-    setGameState(prev => {
-      const newTotal = prev.totalXP + xp;
-      const newXP = prev.xp + xp;
-      const newLevel = Math.floor(newTotal / XP_PER_LEVEL) + 1;
-      return {
-        ...prev,
-        totalXP: newTotal,
-        xp: newXP,
-        dracmas: prev.dracmas + dracmas,
-        level: newLevel,
-      };
-    });
+  const handleStartStory = (story) => {
+    SFX.click();
+    setCurrentStory(story);
   };
+
+  const handleStoryComplete = (storyId, xp, dracmas) => {
+    const prevLevel = gameState.level;
+    const newState = applyReward(gameState, xp, dracmas, storyId);
+    setGameState(newState);
+    setCurrentStory(null);
+    setShowConfetti(true);
+    if (newState.level > prevLevel) {
+      setTimeout(() => { setShowLevelUp(true); SFX.unlock(); }, 800);
+    }
+  };
+
+  const handleGameReward = (xp, dracmas, gameId, extraFields = {}) => {
+    setGameState(prev => {
+      const prevLevel = prev.level;
+      const base = applyReward(prev, xp, dracmas);
+      const gamesPlayed = gameId && !prev.gamesPlayed.includes(gameId)
+        ? [...prev.gamesPlayed, gameId]
+        : prev.gamesPlayed;
+      const next = { ...base, gamesPlayed, ...extraFields };
+      if (next.level > prevLevel) {
+        setTimeout(() => { setShowLevelUp(true); SFX.unlock(); }, 600);
+      }
+      return next;
+    });
+    if (xp > 0) setShowConfetti(true);
+  };
+
+  const handleUpdateState = (fields) => {
+    setGameState(prev => ({ ...prev, ...fields }));
+  };
+
+  if (needsOnboarding) {
+    return <WelcomeScreen onComplete={handleOnboardingComplete} />;
+  }
+
+  if (currentStory) {
+    return (
+      <StoryReader
+        story={currentStory}
+        onComplete={handleStoryComplete}
+        onBack={() => setCurrentStory(null)}
+      />
+    );
+  }
 
   return (
-    <div className="h-screen flex flex-col bg-gray-900 overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden bg-gray-900">
+      <ConfettiEffect active={showConfetti} onDone={() => setShowConfetti(false)} />
+
+      {/* Level up toast */}
+      <AnimatePresence>
+        {showLevelUp && (
+          <motion.div
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -80, opacity: 0 }}
+            className="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none"
+          >
+            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-3 rounded-2xl shadow-2xl border-4 border-white/50 flex items-center gap-3">
+              <span className="text-2xl">🏆</span>
+              <div>
+                <p className="font-display text-white text-lg">Nível {gameState.level}!</p>
+                <p className="font-body text-white/80 text-xs">{getTitle(gameState.level)}</p>
+              </div>
+              <span className="text-2xl">⭐</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {showLevelUp && setTimeout(() => setShowLevelUp(false), 3000) && null}
+
+      {/* Main content */}
       <div className="flex-1 overflow-hidden">
-        {activeTab === 'map' && (
-          <MapScreen
-            gameState={gameState}
-            onStartStory={handleStartStory}
-          />
-        )}
-        {activeTab !== 'map' && (
-          <div className="h-full flex items-center justify-center">
-            <p className="text-white/50 font-display text-lg">
-              {activeTab === 'stories' ? '📖 Histórias em breve...' :
-               activeTab === 'games' ? '🎮 Jogos em breve...' :
-               activeTab === 'profile' ? '👤 Perfil em breve...' : ''}
-            </p>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {activeTab === 'map' && (
+            <motion.div key="map" className="h-full"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <MapScreen gameState={gameState} onStartStory={handleStartStory} />
+            </motion.div>
+          )}
+          {activeTab === 'games' && (
+            <motion.div key="games" className="h-full"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <GamesScreen gameState={gameState} onReward={handleGameReward} />
+            </motion.div>
+          )}
+          {activeTab === 'profile' && (
+            <motion.div key="profile" className="h-full"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <ProfileScreen gameState={gameState} onUpdateState={handleUpdateState} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+
+      <BottomNav activeTab={activeTab} onTabChange={(tab) => { SFX.click(); setActiveTab(tab); }} />
     </div>
   );
 }

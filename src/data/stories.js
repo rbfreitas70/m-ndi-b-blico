@@ -274,6 +274,33 @@ export const STORIES = [
     ],
   },
 
+  {
+    id: 'ten_commandments',
+    chapterId: 'exodus',
+    title: 'Os Dez Mandamentos',
+    emoji: '📜',
+    color: '#F57F17',
+    unlockXP: 880,
+    xpReward: 110,
+    dracmasReward: 55,
+    verse: 'Não terás outros deuses além de mim. — Êxodo 20:3',
+    description: 'Deus chama Moisés ao topo da montanha e entrega as leis para seu povo!',
+    slides: [
+      { bg: '#FFF8E1', scene: 'desert_walk', text: 'Depois de cruzar o Mar Vermelho, o povo de Deus caminhava pelo deserto.' },
+      { bg: '#FBE9E7', scene: 'sinai_fire', text: 'Deus chamou Moisés para subir o Monte Sinai. A montanha estava coberta de fogo e fumaça!' },
+      { bg: '#E8EAF6', scene: 'cloud_mountain', text: 'Moisés ficou 40 dias e 40 noites no alto da montanha com Deus.' },
+      { bg: '#FFF3E0', scene: 'stone_tablets', text: 'Deus escreveu os Dez Mandamentos em duas tábuas de pedra com o Seu próprio dedo!' },
+      { bg: '#FCE4EC', scene: 'golden_calf', text: 'Enquanto esperavam, o povo fez um bezerro de ouro para adorar. Que erro terrível!' },
+      { bg: '#E8F5E9', scene: 'moses_return', text: 'Moisés desceu com as tábuas. O povo se arrependeu e voltou a obedecer a Deus.' },
+    ],
+    quiz: [
+      { q: 'Onde Deus deu os mandamentos a Moisés?', opts: ['No deserto', 'No Monte Sinai', 'No rio Nilo', 'No Egito'], ans: 1 },
+      { q: 'Quantos dias Moisés ficou na montanha com Deus?', opts: ['7', '20', '40', '100'], ans: 2 },
+      { q: 'Em que Deus escreveu os mandamentos?', opts: ['Papel', 'Madeira', 'Tábuas de pedra', 'Pergaminho'], ans: 2 },
+      { q: 'O que o povo fez de errado enquanto esperava?', opts: ['Dormiu', 'Fugiu', 'Fez um bezerro de ouro', 'Foi ao Egito'], ans: 2 },
+    ],
+  },
+
   // ===== CAPÍTULO 4: REIS =====
   {
     id: 'david_goliath',

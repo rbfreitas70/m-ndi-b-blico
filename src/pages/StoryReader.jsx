@@ -271,6 +271,12 @@ function SceneIllustration({ scene, color }) {
     solomon_dream: <SolomonScene />,
     wisdom: <WisdomScene />,
     temple: <TempleScene />,
+    desert_walk: <DesertWalkScene />,
+    sinai_fire: <SinaiFireScene />,
+    cloud_mountain: <CloudMountainScene />,
+    stone_tablets: <StoneTabletsScene />,
+    golden_calf: <GoldenCalfScene />,
+    moses_return: <MosesReturnScene />,
   };
   return (
     <div className="w-full max-w-xs">
@@ -768,6 +774,87 @@ function TempleScene() {
     <text x="120" y="50" fontSize="22">⭐</text>
     <text x="55" y="30" fontSize="18">🌟</text>
     <text x="200" y="32" fontSize="18">🌟</text>
+  </SVG>;
+}
+
+function DesertWalkScene() {
+  return <SVG bg="#FFF8E1">
+    <rect width="280" height="200" fill="#FFD54F" opacity={0.25} />
+    <rect y="140" width="280" height="60" fill="#D7B07A" />
+    {[0,1,2,3,4,5].map(i => <text key={i} x={10 + i * 44} y={138} fontSize="22">👤</text>)}
+    <text x="110" y="85" fontSize="36">☀️</text>
+    <text x="50" y="120" fontSize="24">🐪</text>
+    <text x="185" y="118" fontSize="24">🐪</text>
+  </SVG>;
+}
+
+function SinaiFireScene() {
+  return <SVG bg="#FBE9E7">
+    <rect width="280" height="200" fill="#1a237e" />
+    {[...Array(10)].map((_, i) => <circle key={i} cx={12 + i * 26} cy={15 + (i % 3) * 10} r="2" fill="#FFD54F" />)}
+    <polygon points="90,190 140,30 190,190" fill="#607D8B" />
+    <polygon points="30,190 90,80 150,190" fill="#78909C" />
+    <text x="110" y="90" fontSize="36">🔥</text>
+    <text x="140" y="65" fontSize="26">⚡</text>
+    <text x="80" y="55" fontSize="20">☁️</text>
+    <text x="165" y="50" fontSize="22">☁️</text>
+  </SVG>;
+}
+
+function CloudMountainScene() {
+  return <SVG bg="#E8EAF6">
+    <rect width="280" height="200" fill="#607D8B" opacity={0.3} />
+    <polygon points="60,180 140,30 220,180" fill="#546E7A" />
+    <rect y="175" width="280" height="25" fill="#8D6E63" />
+    <text x="105" y="55" fontSize="34">☁️</text>
+    <text x="145" y="75" fontSize="28">☁️</text>
+    <text x="115" y="95" fontSize="36">✨</text>
+    <text x="118" y="165" fontSize="32">👴</text>
+    <text x="95" y="135" fontSize="18">🙏</text>
+  </SVG>;
+}
+
+function StoneTabletsScene() {
+  return <SVG bg="#FFF3E0">
+    <rect width="280" height="200" fill="#FFF8E1" />
+    <rect x="55" y="40" width="70" height="110" rx="10" fill="#9E9E9E" />
+    <rect x="55" y="40" width="70" height="50" rx="10" fill="#BDBDBD" />
+    <rect x="145" y="40" width="70" height="110" rx="10" fill="#9E9E9E" />
+    <rect x="145" y="40" width="70" height="50" rx="10" fill="#BDBDBD" />
+    {[1,2,3,4,5].map(i => <line key={i} x1="62" y1={95 + i*10} x2="118" y2={95 + i*10} stroke="#616161" strokeWidth="2" />)}
+    {[1,2,3,4,5].map(i => <line key={i} x1="152" y1={95 + i*10} x2="208" y2={95 + i*10} stroke="#616161" strokeWidth="2" />)}
+    <text x="75" y="68" fontSize="22">📜</text>
+    <text x="165" y="68" fontSize="22">📜</text>
+    <text x="110" y="175" fontSize="30">✨</text>
+    <text x="140" y="178" fontSize="26">⚡</text>
+  </SVG>;
+}
+
+function GoldenCalfScene() {
+  return <SVG bg="#FCE4EC">
+    <rect width="280" height="200" fill="#FFF3E0" />
+    <rect y="155" width="280" height="45" fill="#8BC34A" />
+    <text x="100" y="145" fontSize="52">🐄</text>
+    <text x="145" y="105" fontSize="30">✨</text>
+    <text x="155" y="90" fontSize="24">💛</text>
+    <text x="40" y="152" fontSize="22">👤</text>
+    <text x="190" y="150" fontSize="22">👤</text>
+    <text x="230" y="148" fontSize="22">🎉</text>
+    <text x="20" y="145" fontSize="20">🎉</text>
+  </SVG>;
+}
+
+function MosesReturnScene() {
+  return <SVG bg="#E8F5E9">
+    <rect width="280" height="200" fill="#87CEEB" />
+    <rect y="155" width="280" height="45" fill="#8BC34A" />
+    <text x="108" y="148" fontSize="40">👴</text>
+    <text x="65" y="130" fontSize="28">📜</text>
+    <text x="165" y="125" fontSize="28">📜</text>
+    <text x="30" y="152" fontSize="20">👤</text>
+    <text x="200" y="150" fontSize="20">👤</text>
+    <text x="120" y="80" fontSize="28">🌟</text>
+    <text x="155" y="70" fontSize="22">✨</text>
   </SVG>;
 }
 

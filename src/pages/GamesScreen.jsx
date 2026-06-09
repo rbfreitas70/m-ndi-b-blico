@@ -5,6 +5,7 @@ import PuzzleGame from '@/components/games/PuzzleGame';
 import ArkGame from '@/components/games/ArkGame';
 import RunnerGame from '@/components/games/RunnerGame';
 import WordSearchGame from '@/components/games/WordSearchGame';
+import ExodusPuzzle from '@/components/games/ExodusPuzzle';
 import ConfettiEffect from '@/components/ConfettiEffect';
 
 const GAMES_LIST = [
@@ -13,6 +14,7 @@ const GAMES_LIST = [
   { id: 'ark',        name: 'Grande Arca de Noé', emoji: '⛵', color: '#2196F3', desc: 'Salve os animais do dilúvio!',     xp: 45,  dr: 20 },
   { id: 'runner',     name: 'Corrida Bíblica',   emoji: '🏃', color: '#FF5722', desc: 'Corra e colete pergaminhos!',       xp: 80,  dr: 40 },
   { id: 'wordsearch', name: 'Caça-Palavras',      emoji: '🔍', color: '#4CAF50', desc: 'Encontre palavras da Bíblia!',     xp: 50,  dr: 22 },
+  { id: 'exodus',     name: 'Travessia do Mar',   emoji: '🌊', color: '#0097A7', desc: 'Monte a cena do Mar Vermelho!',    xp: 90,  dr: 45 },
 ];
 
 export default function GamesScreen({ gameState, onReward }) {
@@ -36,6 +38,8 @@ export default function GamesScreen({ gameState, onReward }) {
     return <RunnerGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('runner', xp, dr)} highScore={gameState?.runnerHighScore || 0} onHighScore={s => onReward(0, 0, null, { runnerHighScore: s })} />;
   if (activeGame === 'wordsearch')
     return <WordSearchGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('wordsearch', xp, dr)} />;
+  if (activeGame === 'exodus')
+    return <ExodusPuzzle onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('exodus', xp, dr)} />;
 
   return (
     <div className="h-full overflow-y-auto"

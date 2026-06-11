@@ -90,8 +90,8 @@ export default function StoryReader({ story, onComplete, onBack }) {
 
   if (finished) {
     return (
-      <div className="h-full flex flex-col items-center justify-center"
-        style={{ background: `linear-gradient(135deg, ${story.color}CC, ${story.color}66)` }}>
+      <div className="flex flex-col items-center justify-center"
+        style={{ height: '100dvh', background: `linear-gradient(135deg, ${story.color}CC, ${story.color}66)` }}>
         <ConfettiEffect active={showConfetti} />
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}
           className="text-8xl mb-4">🏆</motion.div>
@@ -115,8 +115,8 @@ export default function StoryReader({ story, onComplete, onBack }) {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-hidden"
-      style={{ background: currentSlide ? (BG_GRADIENTS[currentSlide.bg] || currentSlide.bg) : '#E3F2FD' }}>
+    <div className="flex flex-col overflow-hidden"
+      style={{ height: '100dvh', background: currentSlide ? (BG_GRADIENTS[currentSlide.bg] || currentSlide.bg) : '#E3F2FD' }}>
 
       {/* Header */}
       <div className="flex items-center gap-3 px-4 pt-safe py-3 bg-white/30 backdrop-blur-sm border-b border-white/30">

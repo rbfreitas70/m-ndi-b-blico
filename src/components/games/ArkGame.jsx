@@ -164,7 +164,7 @@ export default function ArkGame({ onBack, onComplete }) {
 
       {/* Arca */}
       <div className="px-4 relative z-10">
-        <div className="bg-white/10 rounded-3xl px-3 pt-2 pb-1 border border-white/20 relative max-w-[280px] mx-auto">
+        <div className="bg-white/10 rounded-3xl px-3 pt-2 pb-1 border border-white/20 relative max-w-[840px] mx-auto">
           <ArkSVG fill={saved.length / SPECIES.length} savedEmojis={saved.map(id => SPECIES.find(s => s.id === id).emoji)} />
           <AnimatePresence>
             {boarding && (

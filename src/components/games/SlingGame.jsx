@@ -97,7 +97,7 @@ export default function SlingGame({ onBack, onComplete }) {
         <div className="absolute top-[12%] left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-dashed border-red-500/40" />
         {/* Golias */}
         <div className="absolute top-[10%] text-6xl transition-none" style={{ left: `${goliathX}%`, transform: 'translateX(-50%)' }}>
-          👹
+          🧌
         </div>
         {/* Pedra */}
         {stone && (

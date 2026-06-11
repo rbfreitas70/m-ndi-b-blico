@@ -5,7 +5,7 @@ import ConfettiEffect from '@/components/ConfettiEffect';
 const ENEMIES = [
   { name: 'Gigante do Medo', emoji: '👹', hp: 25 },
   { name: 'Leão da Cova', emoji: '🦁', hp: 30 },
-  { name: 'Golias', emoji: '🗿', hp: 40 },
+  { name: 'Golias', emoji: '🧌', hp: 40 },
 ];
 
 const ATTACKS = [

@@ -186,7 +186,7 @@ export default function ArkGame({ onBack, onComplete }) {
 
       {/* Campo de animais */}
       <div className="flex-1 overflow-y-auto px-4 py-3 relative z-10">
-        <div className="grid grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-4 gap-2.5 max-w-sm mx-auto">
           <AnimatePresence>
             {field.map(animal => {
               const isSel = selected === animal.uid;

@@ -97,8 +97,8 @@ export default function SlingGame({ onBack, onComplete }) {
         <div className="absolute top-[12%] left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-dashed border-red-500/40" />
         {/* Golias */}
         <div className="absolute top-[10%] transition-none" style={{ left: `${goliathX}%`, transform: 'translateX(-50%)' }}>
-          <img src="https://media.base44.com/images/public/6a28519cde1732b1752938cb/91f55b4ee_b76f8df6-c5ba-447d-88f0-9c0af6f7419e.jpg"
-            alt="Golias" className="w-20 h-24 object-contain" style={{ mixBlendMode: 'multiply' }} />
+          <img src="https://media.base44.com/images/public/6a28519cde1732b1752938cb/0cf18da7e_emoji-Golias.png"
+            alt="Golias" className="w-20 h-24 object-contain" />
         </div>
         {/* Pedra */}
         {stone && (

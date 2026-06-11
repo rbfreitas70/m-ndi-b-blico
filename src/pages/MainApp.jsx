@@ -9,6 +9,7 @@ import ProfileScreen from './ProfileScreen';
 import BottomNav from '@/components/BottomNav';
 import ConfettiEffect from '@/components/ConfettiEffect';
 import { loadState, saveState, applyReward, getTitle, getLevel } from '@/lib/gameState';
+import { getNewMedals, getMedalById } from '@/lib/achievements';
 import { SFX } from '@/lib/audioEngine';
 
 export default function MainApp() {
@@ -17,8 +18,22 @@ export default function MainApp() {
   const [currentStory, setCurrentStory] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [medalToast, setMedalToast] = useState(null);
 
   useEffect(() => { saveState(gameState); }, [gameState]);
+
+  // Desbloqueio automático de medalhas
+  useEffect(() => {
+    const newIds = getNewMedals(gameState);
+    if (newIds.length === 0) return;
+    setGameState(prev => ({
+      ...prev,
+      unlockedMedals: [...prev.unlockedMedals, ...newIds.filter(id => !prev.unlockedMedals.includes(id))],
+    }));
+    setMedalToast(getMedalById(newIds[0]));
+    SFX.victory();
+    setTimeout(() => setMedalToast(null), 3500);
+  }, [gameState]);
 
   // Onboarding: show welcome if name not set
   const needsOnboarding = !gameState.onboardingDone || !gameState.name;
@@ -108,6 +123,27 @@ export default function MainApp() {
         )}
       </AnimatePresence>
       {showLevelUp && setTimeout(() => setShowLevelUp(false), 3000) && null}
+
+      {/* Medal unlocked toast */}
+      <AnimatePresence>
+        {medalToast && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            className="fixed bottom-24 left-0 right-0 z-50 flex justify-center pointer-events-none"
+          >
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-5 py-3 rounded-2xl shadow-2xl border-4 border-yellow-400/60 flex items-center gap-3">
+              <span className="text-3xl">{medalToast.emoji}</span>
+              <div>
+                <p className="font-display text-yellow-300 text-xs">🏅 Nova Medalha!</p>
+                <p className="font-display text-white text-base leading-tight">{medalToast.name}</p>
+                <p className="font-body text-white/70 text-[10px]">{medalToast.desc}</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main content */}
       <div className="flex-1 overflow-hidden">

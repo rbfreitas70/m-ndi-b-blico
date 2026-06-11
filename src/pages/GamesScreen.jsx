@@ -6,9 +6,17 @@ import ArkGame from '@/components/games/ArkGame';
 import RunnerGame from '@/components/games/RunnerGame';
 import WordSearchGame from '@/components/games/WordSearchGame';
 import ExodusPuzzle from '@/components/games/ExodusPuzzle';
+import SlingGame from '@/components/games/SlingGame';
+import AdventureGame from '@/components/games/AdventureGame';
+import RPGGame from '@/components/games/RPGGame';
+import StrategyGame from '@/components/games/StrategyGame';
 import ConfettiEffect from '@/components/ConfettiEffect';
 
 const GAMES_LIST = [
+  { id: 'sling',     name: 'Davi contra Golias',  emoji: '🎯', color: '#E65100', desc: 'Ação! Acerte o gigante com a funda!',      tag: '⚡ Ação',       xp: 85,  dr: 40 },
+  { id: 'adventure', name: 'Jornada no Deserto',   emoji: '🏜️', color: '#FF8F00', desc: 'Aventura! Guie o povo com escolhas!',      tag: '🧭 Aventura',  xp: 95,  dr: 45 },
+  { id: 'rpg',       name: 'Batalha da Fé',        emoji: '🛡️', color: '#673AB7', desc: 'RPG! Vença gigantes em turnos!',           tag: '⚔️ RPG',       xp: 110, dr: 50 },
+  { id: 'strategy',  name: 'Construtor do Templo', emoji: '🏛️', color: '#F57F17', desc: 'Estratégia! Planeje os recursos!',         tag: '🧠 Estratégia', xp: 100, dr: 50 },
   { id: 'memory',     name: 'Memória Bíblica',  emoji: '🃏', color: '#9C27B0', desc: 'Encontre os pares sagrados!',       xp: 60,  dr: 25 },
   { id: 'puzzle',     name: 'Quebra-Cabeça',     emoji: '🧩', color: '#FF8A65', desc: 'Monte figuras bíblicas!',           xp: 70,  dr: 30 },
   { id: 'ark',        name: 'Grande Arca de Noé', emoji: '⛵', color: '#2196F3', desc: 'Salve os animais do dilúvio!',     xp: 45,  dr: 20 },
@@ -40,6 +48,14 @@ export default function GamesScreen({ gameState, onReward }) {
     return <WordSearchGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('wordsearch', xp, dr)} />;
   if (activeGame === 'exodus')
     return <ExodusPuzzle onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('exodus', xp, dr)} />;
+  if (activeGame === 'sling')
+    return <SlingGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('sling', xp, dr)} />;
+  if (activeGame === 'adventure')
+    return <AdventureGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('adventure', xp, dr)} />;
+  if (activeGame === 'rpg')
+    return <RPGGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('rpg', xp, dr)} />;
+  if (activeGame === 'strategy')
+    return <StrategyGame onBack={() => setActiveGame(null)} onComplete={(xp, dr) => handleComplete('strategy', xp, dr)} />;
 
   return (
     <div className="h-full overflow-y-auto"
@@ -83,7 +99,8 @@ export default function GamesScreen({ gameState, onReward }) {
                     {played && <span className="text-yellow-400 text-sm">⭐</span>}
                   </div>
                   <p className="font-body text-white/60 text-xs mb-1.5">{game.desc}</p>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
+                    {game.tag && <span className="bg-white/15 text-white text-xs font-body px-2 py-0.5 rounded-full">{game.tag}</span>}
                     <span className="bg-yellow-400/20 text-yellow-300 text-xs font-body px-2 py-0.5 rounded-full">+{game.xp} XP</span>
                     <span className="bg-orange-400/20 text-orange-300 text-xs font-body px-2 py-0.5 rounded-full">+{game.dr} 🪙</span>
                   </div>

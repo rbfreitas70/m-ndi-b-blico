@@ -2,30 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SFX } from '@/lib/audioEngine';
 import { getXPProgress, getXPForNextLevel, getTitle } from '@/lib/gameState';
-
-const MEDALS_DATA = [
-  // Explorer
-  { id: 'first_story', cat: 'explorer', name: 'Primeiro Passo', emoji: '👣', desc: 'Complete sua 1ª história' },
-  { id: 'story_5', cat: 'explorer', name: 'Leitor Júnior', emoji: '📚', desc: '5 histórias completas' },
-  { id: 'story_10', cat: 'explorer', name: 'Biblista', emoji: '🏛️', desc: '10 histórias completas' },
-  { id: 'all_genesis', cat: 'explorer', name: 'Filho do Éden', emoji: '🌿', desc: 'Conclua o capítulo Gênesis' },
-  { id: 'all_exodus', cat: 'explorer', name: 'Libertado!', emoji: '🌊', desc: 'Conclua o capítulo Êxodo' },
-  // Sage
-  { id: 'quiz_perfect', cat: 'sage', name: 'Sábio do Quiz', emoji: '🧠', desc: 'Acerte 100% em um quiz' },
-  { id: 'verse_memorized', cat: 'sage', name: 'Memorizador', emoji: '📜', desc: 'Memorize um versículo' },
-  { id: 'streak_3', cat: 'sage', name: 'Constante', emoji: '🔥', desc: '3 dias seguidos' },
-  { id: 'streak_7', cat: 'sage', name: 'Devoto', emoji: '⭐', desc: '7 dias seguidos' },
-  // Warrior
-  { id: 'game_memory', cat: 'warrior', name: 'Mestre Memória', emoji: '🃏', desc: 'Vença o jogo de memória' },
-  { id: 'game_runner', cat: 'warrior', name: 'Corredor da Fé', emoji: '🏃', desc: 'Corra 100m no runner' },
-  { id: 'game_puzzle', cat: 'warrior', name: 'Montador', emoji: '🧩', desc: 'Complete um quebra-cabeça' },
-  { id: 'game_ark', cat: 'warrior', name: 'Ajudante de Noé', emoji: '⛵', desc: 'Encha a arca' },
-  // Treasure
-  { id: 'dracmas_100', cat: 'treasure', name: 'Poupador', emoji: '🪙', desc: 'Junte 100 Dracmas' },
-  { id: 'dracmas_500', cat: 'treasure', name: 'Tesouro de Sião', emoji: '💰', desc: 'Junte 500 Dracmas' },
-  { id: 'level_5', cat: 'treasure', name: 'Nível 5', emoji: '🏅', desc: 'Alcance o nível 5' },
-  { id: 'level_10', cat: 'treasure', name: 'Campeão', emoji: '👑', desc: 'Alcance o nível 10' },
-];
+import { MEDALS, CAT_LABELS } from '@/lib/achievements';
 
 const SHOP_ITEMS = [
   { id: 'av_boy', type: 'avatar', name: 'Menino Davi', emoji: '👦', color: '#4FC3F7', price: 0 },
@@ -38,13 +15,6 @@ const SHOP_ITEMS = [
   { id: 'fr_royal', type: 'frame', name: 'Moldura Real', emoji: '👑', color: '#9C27B0', price: 90 },
   { id: 'fr_heaven', type: 'frame', name: 'Moldura Celeste', emoji: '☁️', color: '#4FC3F7', price: 75 },
 ];
-
-const CAT_LABELS = {
-  explorer: '🗺️ Explorador',
-  sage: '📚 Sábio',
-  warrior: '⚔️ Guerreiro',
-  treasure: '💰 Tesouro',
-};
 
 export default function ProfileScreen({ gameState, onUpdateState }) {
   const [tab, setTab] = useState('medals');
@@ -144,19 +114,26 @@ export default function ProfileScreen({ gameState, onUpdateState }) {
         {tab === 'medals' && (
           <div className="space-y-5">
             {Object.entries(CAT_LABELS).map(([cat, label]) => {
-              const catMedals = MEDALS_DATA.filter(m => m.cat === cat);
+              const catMedals = MEDALS.filter(m => m.cat === cat);
+              const earnedCount = catMedals.filter(m => gameState.unlockedMedals?.includes(m.id)).length;
               return (
                 <div key={cat}>
-                  <h3 className="font-display text-white/70 text-xs uppercase tracking-widest mb-2">{label}</h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display text-white/70 text-xs uppercase tracking-widest">{label}</h3>
+                    <span className="font-body text-white/40 text-[10px]">{earnedCount}/{catMedals.length}</span>
+                  </div>
                   <div className="grid grid-cols-4 gap-2">
                     {catMedals.map(medal => {
                       const earned = gameState.unlockedMedals?.includes(medal.id);
                       return (
-                        <div key={medal.id}
-                          className={`rounded-2xl p-2.5 text-center border-2 transition-all ${earned ? 'border-yellow-400/50 bg-yellow-400/15' : 'border-white/10 bg-white/5 opacity-40'}`}>
+                        <motion.div key={medal.id}
+                          initial={false}
+                          animate={earned ? { scale: [1, 1.08, 1] } : {}}
+                          title={medal.desc}
+                          className={`rounded-2xl p-2.5 text-center border-2 transition-all ${earned ? 'border-yellow-400/50 bg-yellow-400/15 shadow-[0_0_12px_rgba(255,213,79,0.25)]' : 'border-white/10 bg-white/5 opacity-40'}`}>
                           <div className="text-2xl mb-0.5">{earned ? medal.emoji : '🔒'}</div>
                           <p className="font-body text-[9px] text-white/70 leading-tight">{medal.name}</p>
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>

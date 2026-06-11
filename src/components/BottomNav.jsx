@@ -1,6 +1,7 @@
 const TABS = [
   { id: 'map',     emoji: '🗺️',  label: 'Mapa'    },
   { id: 'games',   emoji: '🎮',  label: 'Jogos'    },
+  { id: 'study',   emoji: '📖',  label: 'Estudos'  },
   { id: 'profile', emoji: '👤',  label: 'Perfil'   },
 ];
 
@@ -17,10 +18,10 @@ export default function BottomNav({ activeTab, onTabChange }) {
         const active = activeTab === tab.id;
         return (
           <button key={tab.id} onClick={() => onTabChange(tab.id)}
-            className="flex flex-col items-center gap-0.5 px-6 py-1.5 rounded-2xl transition-all"
+            className="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-2xl transition-all"
             style={{
               background: active ? 'rgba(79,195,247,0.15)' : 'transparent',
-              minWidth: 72,
+              minWidth: 64,
             }}>
             <span className="text-2xl transition-transform duration-200"
               style={{ transform: active ? 'scale(1.25)' : 'scale(1)' }}>

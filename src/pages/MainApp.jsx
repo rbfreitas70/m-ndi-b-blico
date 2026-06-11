@@ -4,6 +4,7 @@ import WelcomeScreen from './WelcomeScreen';
 import MapScreen from './MapScreen';
 import StoryReader from './StoryReader';
 import GamesScreen from './GamesScreen';
+import StudyScreen from './StudyScreen';
 import ProfileScreen from './ProfileScreen';
 import BottomNav from '@/components/BottomNav';
 import ConfettiEffect from '@/components/ConfettiEffect';
@@ -121,6 +122,12 @@ export default function MainApp() {
             <motion.div key="games" className="h-full"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <GamesScreen gameState={gameState} onReward={handleGameReward} />
+            </motion.div>
+          )}
+          {activeTab === 'study' && (
+            <motion.div key="study" className="h-full"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <StudyScreen />
             </motion.div>
           )}
           {activeTab === 'profile' && (

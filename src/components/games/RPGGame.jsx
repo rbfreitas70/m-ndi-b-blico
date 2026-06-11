@@ -3,7 +3,7 @@ import { SFX } from '@/lib/audioEngine';
 import ConfettiEffect from '@/components/ConfettiEffect';
 
 const ENEMIES = [
-  { name: 'Gigante do Medo', emoji: '👹', hp: 25 },
+  { name: 'Gigante do Medo', emoji: '🧌', img: 'https://media.base44.com/images/public/6a28519cde1732b1752938cb/5c8e3aa26_emoji-Golias.png', hp: 25 },
   { name: 'Leão da Cova', emoji: '🦁', hp: 30 },
   { name: 'Golias', emoji: '🧌', img: 'https://media.base44.com/images/public/6a28519cde1732b1752938cb/0cf18da7e_emoji-Golias.png', hp: 40 },
 ];

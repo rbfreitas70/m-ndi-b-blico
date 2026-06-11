@@ -99,7 +99,7 @@ export default function MainApp() {
   }
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-gray-900">
+    <div className="flex flex-col overflow-hidden bg-gray-900" style={{ height: '100dvh' }}>
       <ConfettiEffect active={showConfetti} onDone={() => setShowConfetti(false)} />
 
       {/* Level up toast */}

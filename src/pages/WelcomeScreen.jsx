@@ -46,8 +46,8 @@ export default function WelcomeScreen({ onComplete }) {
   };
 
   return (
-    <div className="h-full flex flex-col overflow-hidden relative"
-      style={{ background: 'linear-gradient(180deg, #1a237e 0%, #0277BD 40%, #4CAF50 100%)' }}>
+    <div className="flex flex-col overflow-hidden relative"
+      style={{ height: '100dvh', background: 'linear-gradient(180deg, #1a237e 0%, #0277BD 40%, #4CAF50 100%)' }}>
 
       {/* Floating clouds */}
       {[...Array(4)].map((_, i) => (

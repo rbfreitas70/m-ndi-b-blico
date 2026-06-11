@@ -62,10 +62,19 @@ export default function MapScreen({ gameState, onStartStory }) {
           </div>
         </div>
 
-        {/* Chapters — rendered bottom to top visually (reversed list) */}
+        {/* Testaments and chapters — rendered bottom to top visually (reversed list) */}
         <div className="space-y-8">
-          {[...CHAPTERS].reverse().map((chapter, reverseIdx) => {
-            const chapterIdx = CHAPTERS.length - 1 - reverseIdx;
+          {[
+            { id: 'new', title: '✝️ Novo Testamento', chapters: CHAPTERS.filter(c => c.testament === 'new') },
+            { id: 'old', title: '📜 Velho Testamento', chapters: CHAPTERS.filter(c => c.testament === 'old') },
+          ].map(group => (
+          <div key={group.id} className="space-y-8">
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-white/25" />
+            <h2 className="font-display text-white/90 text-lg drop-shadow">{group.title}</h2>
+            <div className="flex-1 h-px bg-white/25" />
+          </div>
+          {[...group.chapters].reverse().map((chapter) => {
             const unlocked = isChapterUnlocked(chapter);
             const stories = STORIES.filter(s => s.chapterId === chapter.id);
             const { total, done } = getChapterProgress(chapter);
@@ -242,6 +251,8 @@ export default function MapScreen({ gameState, onStartStory }) {
               </div>
             );
           })}
+          </div>
+          ))}
         </div>
 
         {/* Bottom encouragement */}
@@ -254,7 +265,11 @@ export default function MapScreen({ gameState, onStartStory }) {
                   ? '🔥 Você está indo muito bem! Continue!'
                   : totalXP < 900
                     ? '⚡ Quase lá! O Reino de Israel te aguarda!'
-                    : '👑 Uau! Você chegou ao nível dos Reis!'}
+                    : totalXP < 1100
+                      ? '👑 Uau! Você chegou ao nível dos Reis!'
+                      : totalXP < 2300
+                        ? '✝️ Bem-vindo ao Novo Testamento! Conheça Jesus!'
+                        : '🌅 Incrível! Você chegou à Páscoa e à Igreja!'}
             </p>
           </div>
         </div>

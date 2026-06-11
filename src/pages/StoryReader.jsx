@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SFX } from '@/lib/audioEngine';
 import { speak, stop } from '@/lib/speechEngine';
 import ConfettiEffect from '@/components/ConfettiEffect';
+import { NT_SCENES } from '@/components/story/NTScenes';
 
 export default function StoryReader({ story, onComplete, onBack }) {
   const [page, setPage] = useState(0);
@@ -226,6 +227,7 @@ export default function StoryReader({ story, onComplete, onBack }) {
 // Simple scene illustrations using SVG
 function SceneIllustration({ scene, color }) {
   const scenes = {
+    ...NT_SCENES,
     creation: <CreationScene />,
     light: <LightScene />,
     earth: <EarthScene />,

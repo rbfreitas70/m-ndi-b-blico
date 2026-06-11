@@ -9,7 +9,7 @@ const CATEGORIES = {
   },
   'Milagres': {
     color: '#4FC3F7',
-    words: ['MANA', 'CURA', 'AGUA', 'PEO', 'LUZ', 'PEO', 'CEIA', 'FOGO', 'VENTO', 'MAR'],
+    words: ['MANA', 'CURA', 'AGUA', 'PAO', 'LUZ', 'VINHO', 'CEIA', 'FOGO', 'VENTO', 'MAR'],
   },
   'Lugares': {
     color: '#81C784',

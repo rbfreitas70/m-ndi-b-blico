@@ -5,7 +5,7 @@ import ConfettiEffect from '@/components/ConfettiEffect';
 const ENEMIES = [
   { name: 'Gigante do Medo', emoji: '👹', hp: 25 },
   { name: 'Leão da Cova', emoji: '🦁', hp: 30 },
-  { name: 'Golias', emoji: '🧌', hp: 40 },
+  { name: 'Golias', emoji: '🧌', img: 'https://media.base44.com/images/public/6a28519cde1732b1752938cb/91f55b4ee_b76f8df6-c5ba-447d-88f0-9c0af6f7419e.jpg', hp: 40 },
 ];
 
 const ATTACKS = [
@@ -133,7 +133,9 @@ export default function RPGGame({ onBack, onComplete }) {
       {/* Inimigo */}
       <div className="px-5 pt-5">
         <div className="flex items-center gap-3 mb-1">
-          <span className="text-5xl">{enemy.emoji}</span>
+          {enemy.img
+            ? <img src={enemy.img} alt={enemy.name} className="w-14 h-16 object-contain rounded-xl bg-white/90 p-0.5" />
+            : <span className="text-5xl">{enemy.emoji}</span>}
           <div className="flex-1">
             <p className="font-display text-white text-sm">{enemy.name}</p>
             <HPBar hp={enemyHP} max={enemy.hp} color="#EF5350" />

@@ -700,7 +700,7 @@ function GoliathScene() {
   return <SVG bg="#F3E5F5">
     <rect width="280" height="200" fill="#E8EAF6" />
     <rect y="160" width="280" height="40" fill="#8BC34A" />
-    <text x="155" y="155" fontSize="52">🧌</text>
+    <image href="https://media.base44.com/images/public/6a28519cde1732b1752938cb/91f55b4ee_b76f8df6-c5ba-447d-88f0-9c0af6f7419e.jpg" x="150" y="90" width="62" height="72" preserveAspectRatio="xMidYMid meet" />
     <text x="70" y="170" fontSize="28">👦</text>
     <text x="50" y="148" fontSize="20">🗡️</text>
     <text x="200" y="80" fontSize="28">⚔️</text>
@@ -715,7 +715,7 @@ function DavidScene() {
     <text x="80" y="160" fontSize="36">👦</text>
     <text x="140" y="85" fontSize="24">💪</text>
     <text x="60" y="90" fontSize="28">✨</text>
-    <text x="170" y="155" fontSize="32">🧌</text>
+    <image href="https://media.base44.com/images/public/6a28519cde1732b1752938cb/91f55b4ee_b76f8df6-c5ba-447d-88f0-9c0af6f7419e.jpg" x="165" y="110" width="42" height="50" preserveAspectRatio="xMidYMid meet" />
   </SVG>;
 }
 
@@ -724,7 +724,7 @@ function SlingshotScene() {
     <rect width="280" height="200" fill="#E8EAF6" />
     <rect y="155" width="280" height="45" fill="#8BC34A" />
     <text x="40" y="152" fontSize="36">👦</text>
-    <text x="175" y="150" fontSize="48">🧌</text>
+    <image href="https://media.base44.com/images/public/6a28519cde1732b1752938cb/91f55b4ee_b76f8df6-c5ba-447d-88f0-9c0af6f7419e.jpg" x="168" y="92" width="58" height="66" preserveAspectRatio="xMidYMid meet" />
     <circle cx="130" cy="100" r="8" fill="#607D8B" />
     <path d="M55 130 Q130 80 175 130" stroke="#795548" strokeWidth="3" fill="none" />
   </SVG>;

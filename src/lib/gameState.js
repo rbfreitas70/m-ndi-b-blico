@@ -24,6 +24,7 @@ export const DEFAULT_STATE = {
   avatarId: 'avatar_default',
   frameId: null,
   runnerHighScore: 0,
+  gameTimeSeconds: 0,
   parentPin: null,
   soundEnabled: true,
   narrationEnabled: true,

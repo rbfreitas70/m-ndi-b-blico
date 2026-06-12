@@ -65,8 +65,8 @@ export default function MapScreen({ gameState, onStartStory }) {
         {/* Testaments and chapters — rendered bottom to top visually (reversed list) */}
         <div className="space-y-8">
           {[
-            { id: 'new', title: '✝️ Novo Testamento', chapters: CHAPTERS.filter(c => c.testament === 'new') },
             { id: 'old', title: '📜 Velho Testamento', chapters: CHAPTERS.filter(c => c.testament === 'old') },
+            { id: 'new', title: '✝️ Novo Testamento', chapters: CHAPTERS.filter(c => c.testament === 'new') },
           ].map(group => (
           <div key={group.id} className="space-y-8">
           <div className="flex items-center gap-3">
@@ -74,7 +74,7 @@ export default function MapScreen({ gameState, onStartStory }) {
             <h2 className="font-display text-white/90 text-lg drop-shadow">{group.title}</h2>
             <div className="flex-1 h-px bg-white/25" />
           </div>
-          {[...group.chapters].reverse().map((chapter) => {
+          {group.chapters.map((chapter) => {
             const unlocked = isChapterUnlocked(chapter);
             const stories = STORIES.filter(s => s.chapterId === chapter.id);
             const { total, done } = getChapterProgress(chapter);

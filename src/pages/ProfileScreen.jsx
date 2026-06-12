@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { SFX } from '@/lib/audioEngine';
 import { getXPProgress, getXPForNextLevel, getTitle } from '@/lib/gameState';
 import { MEDALS, CAT_LABELS } from '@/lib/achievements';
+import ParentGate from '@/components/parent/ParentGate';
+import ParentDashboard from '@/components/parent/ParentDashboard';
 
 const SHOP_ITEMS = [
   { id: 'av_boy', type: 'avatar', name: 'Menino Davi', emoji: '👦', color: '#4FC3F7', price: 0 },
@@ -18,6 +20,7 @@ const SHOP_ITEMS = [
 
 export default function ProfileScreen({ gameState, onUpdateState }) {
   const [tab, setTab] = useState('medals');
+  const [parentView, setParentView] = useState(null); // null | 'gate' | 'dashboard'
 
   const progress = getXPProgress(gameState.totalXP);
   const xpNext = getXPForNextLevel(gameState.totalXP);
@@ -40,6 +43,11 @@ export default function ProfileScreen({ gameState, onUpdateState }) {
     if (item.type === 'avatar') onUpdateState({ avatarId: item.id });
     else if (item.type === 'frame') onUpdateState({ frameId: gameState.frameId === item.id ? null : item.id });
   };
+
+  if (parentView === 'gate')
+    return <ParentGate onPass={() => setParentView('dashboard')} onCancel={() => setParentView(null)} />;
+  if (parentView === 'dashboard')
+    return <ParentDashboard gameState={gameState} onClose={() => setParentView(null)} />;
 
   return (
     <div className="h-full flex flex-col overflow-hidden"
@@ -94,6 +102,12 @@ export default function ProfileScreen({ gameState, onUpdateState }) {
             </div>
           ))}
         </div>
+
+        {/* Painel dos Pais */}
+        <button onClick={() => { SFX.click(); setParentView('gate'); }}
+          className="w-full mt-3 py-2.5 rounded-2xl font-body text-sm text-white/70 bg-white/10 border border-white/15">
+          👨‍👩‍👧 Painel dos Pais
+        </button>
       </div>
 
       {/* Tabs */}

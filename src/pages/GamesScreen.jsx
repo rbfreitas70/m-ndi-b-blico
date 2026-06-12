@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SFX } from '@/lib/audioEngine';
 import MemoryGame from '@/components/games/MemoryGame';
 import PuzzleGame from '@/components/games/PuzzleGame';
@@ -28,6 +28,18 @@ const GAMES_LIST = [
 export default function GamesScreen({ gameState, onReward }) {
   const [activeGame, setActiveGame] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const startRef = useRef(null);
+
+  // Registra o tempo gasto nos jogos (para o Painel dos Pais)
+  useEffect(() => {
+    if (activeGame) {
+      startRef.current = Date.now();
+    } else if (startRef.current) {
+      const elapsed = Math.round((Date.now() - startRef.current) / 1000);
+      startRef.current = null;
+      if (elapsed > 2) onReward(0, 0, null, { gameTimeSeconds: (gameState?.gameTimeSeconds || 0) + elapsed });
+    }
+  }, [activeGame]);
 
   const handleComplete = (gameId, xp, dracmas) => {
     SFX.victory();

@@ -6,8 +6,8 @@ const GOALS = { wood: 10, stone: 10, gold: 6 };
 const TOTAL_ROUNDS = 10;
 
 const RESOURCES = [
-  { id: 'wood',  name: 'Madeira de Cedro', emoji: '🪵', color: '#8D6E63' },
-  { id: 'stone', name: 'Pedras Lavradas',  emoji: '🪨', color: '#90A4AE' },
+  { id: 'wood',  name: 'Madeira de Cedro', emoji: '🌲', color: '#8D6E63' },
+  { id: 'stone', name: 'Pedras Lavradas',  emoji: '🗿', color: '#90A4AE' },
   { id: 'gold',  name: 'Ouro Puro',        emoji: '✨', color: '#FFD54F' },
 ];
 

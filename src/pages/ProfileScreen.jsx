@@ -93,7 +93,7 @@ export default function ProfileScreen({ gameState, onUpdateState }) {
           {[
             { label: 'Histórias', val: gameState.completedStories?.length || 0, icon: '📖' },
             { label: 'Medalhas', val: gameState.unlockedMedals?.length || 0, icon: '🏅' },
-            { label: 'Dracmas', val: gameState.dracmas || 0, icon: '🪙' },
+            { label: 'Dracmas', val: gameState.dracmas || 0, icon: '💰' },
           ].map(s => (
             <div key={s.label} className="bg-white/10 rounded-2xl py-3 text-center border border-white/15">
               <p className="text-lg">{s.icon}</p>

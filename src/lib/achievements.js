@@ -56,7 +56,7 @@ export const MEDALS = [
     check: s => (s.gamesPlayed?.length || 0) >= 10 },
 
   // Tesouro
-  { id: 'dracmas_100', cat: 'treasure', name: 'Poupador', emoji: '🪙', desc: 'Junte 100 Dracmas',
+  { id: 'dracmas_100', cat: 'treasure', name: 'Poupador', emoji: '💵', desc: 'Junte 100 Dracmas',
     check: s => (s.dracmas || 0) >= 100 },
   { id: 'dracmas_500', cat: 'treasure', name: 'Tesouro de Sião', emoji: '💰', desc: 'Junte 500 Dracmas',
     check: s => (s.dracmas || 0) >= 500 },

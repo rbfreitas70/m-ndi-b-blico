@@ -1,24 +1,41 @@
 {
   "name": "Múndi Bíblico",
   "short_name": "Múndi Bíblico",
-  "description": "Aventuras bíblicas para crianças!",
+  "description": "Aventuras bíblicas para crianças! Jogos, histórias e aprendizado da Palavra de Deus.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#1a237e",
   "theme_color": "#1a237e",
+  "lang": "pt-BR",
+  "dir": "ltr",
   "icons": [
-    {
-      "src": "https://media.base44.com/images/public/6a28519cde1732b1752938cb/6ba866889_generated_image.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
     {
       "src": "https://media.base44.com/images/public/6a28519cde1732b1752938cb/6ba866889_generated_image.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://media.base44.com/images/public/6a28519cde1732b1752938cb/6ba866889_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "kids", "games"],
+  "shortcuts": [
+    {
+      "name": "Mapa",
+      "short_name": "Mapa",
+      "description": "Explorar as histórias bíblicas",
+      "url": "/",
+      "icons": [
+        {
+          "src": "https://media.base44.com/images/public/6a28519cde1732b1752938cb/6ba866889_generated_image.png",
+          "sizes": "96x96"
+        }
+      ]
     }
   ]
 }

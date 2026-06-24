@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 // Add page imports here
 import MainApp from '@/pages/MainApp';
 import Manual from '@/pages/Manual';
+import PromptIA from '@/pages/PromptIA';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -38,6 +39,7 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/" element={<MainApp />} />
       <Route path="/manual" element={<Manual />} />
+      <Route path="/prompt-ia" element={<PromptIA />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
